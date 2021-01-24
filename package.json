@@ -9,7 +9,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "ohm-js": "^15.3.0"
+    "ohm-js": "^15.4.1"
   },
   "devDependencies": {
     "c8": "^7.4.0",
