@@ -12,13 +12,13 @@ const aelGrammar = ohm.grammar(String.raw`Ael {
             | id "=" Relop                      --assign
             | print Relop                       --print
   Relop    = Exp ("==") Exp					  --binary
-  			| Exp
+            | Exp
   Exp       = Exp ("+" | "-") Term            --binary
             | Term
   Term      = Term ("*" | "/" | "%") Primary          --binary
             | Primary
   Primary  = Factor ("**") Primary						  --binary
-  			| Factor
+            | Factor
   Factor    = id
             | num
             | "(" Exp ")"                     --parens

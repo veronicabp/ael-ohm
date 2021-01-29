@@ -16,6 +16,7 @@ const binaryOptimizationFixture = [
   ["optimizes *0", "let x = 8\nprint x * 0", "let x = 8\nprint 0"],
   ["optimizes 0*", "let x = 8\nprint 0 * x", "let x = 8\nprint 0"],
   ["optimizes 0/", "let x = 8\nprint 0 / x", "let x = 8\nprint 0"],
+  ["optimizes 0/", "let x = 8\nprint 0 % x", "let x = 8\nprint 0"],
   ["optimizes 0-", "let x = 8\nprint 0 - x", "let x = 8\nprint -x"],
   ["optimizes 0+", "let x = 8\nprint 0 + x", "let x = 8\nprint x"],
   ["optimizes 1*", "let x = 8\nprint 1 * x", "let x = 8\nprint x"],
