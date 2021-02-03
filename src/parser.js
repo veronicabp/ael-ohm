@@ -49,10 +49,16 @@ const astBuilder = aelGrammar.createSemantics().addOperation("ast", {
   Statement_print(_print, expression) {
     return new ast.PrintStatement(expression.ast())
   },
+  Relop_binary(left, op, right) {
+    return new ast.BinaryExpression(op.sourceString, left.ast(), right.ast())
+  },
   Exp_binary(left, op, right) {
     return new ast.BinaryExpression(op.sourceString, left.ast(), right.ast())
   },
   Term_binary(left, op, right) {
+    return new ast.BinaryExpression(op.sourceString, left.ast(), right.ast())
+  },
+  Primary_binary(left, op, right) {
     return new ast.BinaryExpression(op.sourceString, left.ast(), right.ast())
   },
   Factor_unary(op, operand) {

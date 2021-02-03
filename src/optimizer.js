@@ -66,6 +66,10 @@ const optimizers = {
         return new Literal(0)
       } else if (x === 0 && e.op === "%") {
         return new Literal(0)
+      } else if (x === 0 && e.op === "**") {
+        return new Literal(0)
+      } else if (x == 1 && e.op === "**") {
+        return new Literal(1)
       }
     } else if (e.right.constructor === Literal) {
       const y = e.right.value
@@ -75,6 +79,10 @@ const optimizers = {
         return e.left
       } else if (e.op === "*" && y === 0) {
         return new Literal(0)
+      } else if (e.op === "**" && y == 0) {
+        return new Literal(1)
+      } else if (e.op === "**" && y == 1) {
+        return e.left
       }
     }
     return e
