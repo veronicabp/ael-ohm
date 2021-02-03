@@ -5,7 +5,9 @@ import parse from "../src/parser.js"
 const source = `let dozen = 1 * (0 + sqrt 101.3)
   let y = dozen - 0    // TADA 🥑
   dozen = 0 / y
-  print abs dozen //`
+  print abs dozen //
+  print y == dozen
+  let y = 1 % 2 ** 3`
 
 const expectedAst = `   1 | program: Program
    2 |   statements[0]: Variable name='dozen'
@@ -26,7 +28,17 @@ const expectedAst = `   1 | program: Program
   17 |       right: IdentifierExpression name='y'
   18 |   statements[3]: PrintStatement
   19 |     argument: UnaryExpression op='abs'
-  20 |       operand: IdentifierExpression name='dozen'`
+  20 |       operand: IdentifierExpression name='dozen'
+  21 |   statements[4]: PrintStatement
+  22 |     argument: BinaryExpression op='=='
+  23 |       left: IdentifierExpression name='y'
+  24 |       right: IdentifierExpression name='dozen'
+  25 |   statements[5]: Variable name='y'
+  26 |     initializer: BinaryExpression op='%'
+  27 |       left: Literal value=1
+  28 |       right: BinaryExpression op='**'
+  29 |         left: Literal value=2
+  30 |         right: Literal value=3`
 
 const errorFixture = [
   ["a missing right operand", "print 5 -", /Line 1, col 10:/],
