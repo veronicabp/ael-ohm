@@ -15,14 +15,16 @@ const aelGrammar = ohm.grammar(String.raw`Ael {
             | Exp
   Exp       = Exp ("+" | "-") Term            --binary
             | Term
-  Term      = Term ("*" | "/" | "%") Primary          --binary
+  Term      = Term ("*" | "/" | "%") Negation          --binary
+            | Negation
+  Negation  = "-" Primary                       --unary
             | Primary
   Primary  = Factor ("**") Primary						  --binary
             | Factor
   Factor    = id
             | num
             | "(" Exp ")"                     --parens
-            | ("-" | abs | sqrt) Factor       --unary
+            | (abs | sqrt) Factor       --unary
   num       = digit+ ("." digit+)?
   let       = "let" ~alnum
   print     = "print" ~alnum
@@ -57,6 +59,9 @@ const astBuilder = aelGrammar.createSemantics().addOperation("ast", {
   },
   Term_binary(left, op, right) {
     return new ast.BinaryExpression(op.sourceString, left.ast(), right.ast())
+  },
+  Negation_unary(op, operand) {
+    return new ast.UnaryExpression(op.sourceString, operand.ast())
   },
   Primary_binary(left, op, right) {
     return new ast.BinaryExpression(op.sourceString, left.ast(), right.ast())
