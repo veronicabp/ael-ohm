@@ -8,12 +8,12 @@ import * as ast from "./ast.js"
 
 const aelGrammar = ohm.grammar(String.raw`Ael {
   Program   = Statement+
-  Statement = let id "=" Relop                  --variable
-            | id "=" Relop                      --assign
-            | print Relop                       --print
-  Relop    = Exp ("==") Exp					  --binary
-            | Exp
-  Exp       = Exp ("+" | "-") Term            --binary
+  Statement = let id "=" Exp                  --variable
+            | id "=" Exp                      --assign
+            | print Exp                       --print
+  Exp    = Exp2 ("==") Exp2					  --binary
+            | Exp2
+  Exp2       = Exp2 ("+" | "-") Term            --binary
             | Term
   Term      = Term ("*" | "/" | "%") Negation          --binary
             | Negation
@@ -23,7 +23,7 @@ const aelGrammar = ohm.grammar(String.raw`Ael {
             | Factor
   Factor    = id
             | num
-            | "(" Exp ")"                     --parens
+            | "(" Exp2 ")"                     --parens
             | (abs | sqrt) Factor       --unary
   num       = digit+ ("." digit+)?
   let       = "let" ~alnum
